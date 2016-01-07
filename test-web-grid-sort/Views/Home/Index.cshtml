@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+@using System.Web.Helpers
+@{
+	Layout = null;
+	WebGrid grid = new WebGrid(Model, defaultSort: "FirstName");
+}
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Test Web Grid Sorting</title>
+</head>
+<body>
+    <h2>Welcome to ASP.NET MVC @ViewData["Version"] on @ViewData["Runtime"]!</h2>
+    <div id="grid">
+        @grid.GetHtml(
+            columns: grid.Columns(
+                grid.Column("FirstName", "FirstName"),
+                grid.Column("LastName", "LastName"),
+                grid.Column("Age", "Age")
+            ))
+    </div>
+</body>
+</html>
