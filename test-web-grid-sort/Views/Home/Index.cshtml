@@ -2,12 +2,15 @@
 @using System.Web.Helpers
 @{
 	Layout = null;
-	WebGrid grid = new WebGrid(Model, defaultSort: "FirstName");
+	WebGrid grid = new WebGrid(Model, defaultSort: "FirstName", rowsPerPage: 5, ajaxUpdateContainerId: "grid", ajaxUpdateCallback: "gridUpdateCallback");
 }
 <html>
 <head>
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width" />
 	<title>Test Web Grid Sorting</title>
+
+	<script language="javascript" type="text/javascript" src="Scripts/jquery-2.1.4.min.js"></script>
 </head>
 <body>
     <h2>Welcome to ASP.NET MVC @ViewData["Version"] on @ViewData["Runtime"]!</h2>
@@ -18,6 +21,21 @@
                 grid.Column("LastName", "LastName"),
                 grid.Column("Age", "Age")
             ))
+        @Html.Hidden("dir", grid.SortDirection)
+        @Html.Hidden("col", grid.SortColumn)
     </div>
+	<script>
+		var dir, col;
+		function setGridVariables () {
+			dir = document.getElementById("dir");
+			col = document.getElementById("col");
+		}
+
+    	function gridUpdateCallback () {
+    		setGridVariables();
+    		console.log(dir.value);
+    		console.log(col.value);
+    	}
+    </script>
 </body>
 </html>
